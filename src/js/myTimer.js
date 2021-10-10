@@ -13,23 +13,19 @@ class CountdownTimer {
   }
   
   _padZero(value) {
-    return value < 10 ? `0${value}` : value;
+    return String(value).padStart(2, '0');
   }
   _countDowm() {
     const currentTime = new Date();
-    this._createSpanValue(currentTime);
+    const time = this.targetDate - currentTime;
+    this.daysSpan.textContent = this._padZero(Math.floor(time / (1000 * 60 * 60 * 24)));
+    this.hoursSpan.textContent = this._padZero(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    this.minutesSpan.textContent = this._padZero(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+    this.secondsSpan.textContent = this._padZero(Math.floor((time % (1000 * 60)) / 1000));
   }
 
   showTime() {
     setInterval(() => this._countDowm(), 1000);
   }
 
-  _createSpanValue(currentTime) {
-    const time = this.targetDate - currentTime;
-    this.daysSpan.textContent = this._padZero(Math.floor(time / (1000 * 60 * 60 * 24)));
-    this.hoursSpan.textContent = this._padZero(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-    this.minutesSpan.textContent = this._padZero(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
-    this.secondsSpan.textContent = this._padZero(Math.floor((time % (1000 * 60)) / 1000));
-
-  }
 }
